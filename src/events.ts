@@ -51,6 +51,13 @@ btnAddTodo.addEventListener("click", () => {
     input.value = '';
 })
 
+function addErrorLi(errormessage: string): void {
+    const li = document.createElement("li") // create li element
+    li.textContent = errormessage; // Sets content
+    document.getElementById("errors").appendChild(li); // adds li to ul
+}
+
+
 document.getElementById("formUser")
 .addEventListener("click", (alexanderErISverige: Event) => {
     alexanderErISverige.preventDefault(); // stops default form behaviour, to send a post request to server
@@ -61,9 +68,26 @@ document.getElementById("formUser")
     const password = (document.getElementById("password") as HTMLInputElement).value;
     
     console.log(firstname, lastname, email, password);
-    
-    if (firstname === "") {
-        
+    //const errors = document.getElementById("errors");
+    document.getElementById("errors").textContent = "";
+    if (firstname.trim() === "") {
+        addErrorLi("Firstname must be filled out");
     }
-
+    if (lastname.trim() === "") {
+        addErrorLi("Lastname must be filled out");
+    }
+    
+    if (email.trim() === "") {
+        addErrorLi("Email must be filled out");
+    } else {
+        if (!email.includes("@")) {
+            addErrorLi("Email must include a @")
+        }
+    }
+    if (password.trim() === "") {
+        addErrorLi("Password must be filled out");
+    }
+    
 })
+
+
