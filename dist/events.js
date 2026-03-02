@@ -6,6 +6,11 @@ box.addEventListener("mouseover", function (event) {
     console.log(event);
     this.style.backgroundColor = 'red';
 });
+fetch('/api/users', {
+    headers: {
+        'Authorization': 'Bearer ' + jwt
+    }
+});
 box.addEventListener("mouseout", function (event) {
     box.style.backgroundColor = 'blue';
 });
@@ -90,7 +95,7 @@ async function signup(myUsername, myPassword) {
     if (!response.ok) {
         alert("Something went wrong signing up");
     }
-    const data = await response.json();
+    const data = await response.json(); // reads reponse from server, converts from json
     console.log(data);
 }
 // waiting on page to load, and then run some js
