@@ -8,7 +8,7 @@ box.addEventListener("mouseover", function (event) {
 });
 fetch('/api/users', {
     headers: {
-        'Authorization': 'Bearer ' + jwt
+        'Authorization': 'Bearer ' + 'your jwt here'
     }
 });
 box.addEventListener("mouseout", function (event) {
