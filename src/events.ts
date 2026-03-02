@@ -1,3 +1,4 @@
+import { getUsers } from "./api-functions";
 //alert("Hej Daniel");
 
 const box: HTMLElement | null = document.getElementById("box"); 
@@ -7,6 +8,16 @@ box.addEventListener("mouseover", function(event: MouseEvent) {
     console.log(event);
     this.style.backgroundColor = 'red';
 })
+
+
+fetch('/api/users', {
+  headers: {
+    'Authorization': 'Bearer ' + jwt 
+  }
+});
+
+
+
 
 box.addEventListener("mouseout", function(event: MouseEvent) {
     box.style.backgroundColor = 'blue'
@@ -45,6 +56,7 @@ btnAddTodo.addEventListener("click", () => {
     input.value = '';
 })
 
+// Keep it DRY - Dont Repeat Yourself
 function addErrorLi(errormessage: string): void {
     const li = document.createElement("li") // create li element
     li.textContent = errormessage; // Sets content
@@ -87,17 +99,17 @@ document.getElementById("formUser")
 
 document.getElementById("btnJoke").addEventListener("click", async function() {
     const url = 'https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,racist,sexist';
-    const alexanderSovOverSigOgDetErOk = await fetch(url, {
+    const x = await fetch(url, {
         method: 'GET'
     })
 
     // Svarer serveren med en statuskode som er en fejl
-    if (!alexanderSovOverSigOgDetErOk.ok) {
+    if (!x.ok) {
         alert("Noget gik galt");
     }
 
     // Konvertér fra json til javascript repræsentation
-    const data = await alexanderSovOverSigOgDetErOk.json(); 
+    const data = await x.json(); 
     console.log(data);
     
 });
@@ -115,20 +127,12 @@ async function signup(myUsername, myPassword) {
         alert("Something went wrong signing up");
     }
 
-    const data = await response.json();
+    const data = await response.json(); // reads reponse from server, converts from json
     console.log(data);
 
 }
 
 
-// Dummy data som bliver erstattet af et fetch kald til Python backend'en.
-async function getUsers() {
-    return [{ firstname: 'Mig', lastname: 'P', email: 'mai@mai.dk', password: 1234},
-        { firstname: 'Anarikke', lastname: 'P', email: 'mafdsfadsfi@mai.dk', password: 2345},
-        { firstname: 'Lea', lastname: 'P', email: 'dsfaddfsfa@mai.dk', password: 1237},
-        { firstname: 'Laura', lastname: 'P', email: 'mfadsfdsafsadfaai@mai.dk', password: 1238}
-    ]
-}
 
 // waiting on page to load, and then run some js
 window.addEventListener("load", async () => {
